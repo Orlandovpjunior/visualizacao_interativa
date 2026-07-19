@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabFinal - Grupo G</title>
+
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f6f9;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .dashboard-header {
+        background-color: #2c3e50;
+        color: white;
+        padding: 30px;
+        text-align: left;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .dashboard-title {
+        margin: 0;
+        font-size: 36px;
+        font-weight: 700;
+      }
+      .lead {
+        font-size: 20px;
+        color: #ecf0f1;
+        margin-top: 10px;
+      }
+      #chart-header {
+        display: flex;
+        align-items: left;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 800px;
+      }
+      #chart-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+      }
+      #chart {
+        width: 100%;
+        max-width: 800px;
+        height: 500px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 30px;
+      }
+      #back-button {
+        display: none;
+        margin-top: 20px;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+      }
+      #back-button:hover {
+        background-color: #2980b9;
+      }
+      .card {
+        margin: 40px auto;
+        border: none;
+        overflow: hidden;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .card-header {
+        background-color: #34495e;
+        color: white;
+        padding: 20px;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .card-body {
+        padding: 30px;
+        font-size: 16px;
+        color: #7f8c8d;
+        line-height: 1.6;
+      }
+      .header-info {
+        padding: 20px 50px;
+        background-color: #a4dceb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header-info">
+      <table style="width: 100%; border: 0">
+        <tbody><tr>
+          <td style="text-align: left; vertical-align: top">
+            <table style="border: 0">
+              <tbody><tr>
+                <td style="width: 70px">
+                  <img src="https://maxmcz.github.io/visualizacao-de-dados_exemplo/UFCG_logo_png.png" alt="Brasão UFCG" style="margin-top: 5px; height: 62px">
+                </td>
+                <td>
+                  <div style="line-height: 1.4">
+                    <div>
+                      <strong>UNIVERSIDADE FEDERAL DE CAMPINA GRANDE - UFCG</strong>
+                    </div>
+                    <div>
+                      CENTRO DE ENGENHARIA ELÉTRICA E INFORMÁTICA - CEEI
+                    </div>
+                    <div>UNIDADE ACADÊMICA DE SISTEMAS E COMPUTAÇÃO - UASC</div>
+                  </div>
+                </td>
+              </tr>
+            </tbody></table>
+          </td>
+
+          <td style="text-align: right; vertical-align: top">
+            <div>Disciplina: Visualização de Dados</div>
+            <div>Professor: Maxwell Guimarães de Oliveira</div>
+            <div>Período: 2026.1</div>
+          </td>
+        </tr>
+      </tbody></table>
+    </div>
+
+    <div id="header">
+      <h2 style="text-align: center">
+        Projeto de Visualização Interativa de Dados
+      </h2>
+      <h4 style="text-align: center">
+        <u>Grupo X</u>: Primeiro_Nome_1 Último_Nome_1,  Primeiro_Nome_2 Último_Nome_2,  Primeiro_Nome_3 Último_Nome_3, … &nbsp; &nbsp;
+      </h4>
+      <h2 style="text-align: center">
+        <span style="
+            font-family: &#39;Lucida Sans Unicode&#39;, &#39;Lucida Grande&#39;, sans-serif;
+          "><strong>Título da visualização</strong></span>
+      </h2>
+      <p style="text-align: justify; padding: 10px 50px 10px 50px">
+        Breve resumo sobre os dados (e as histórias) visualizadas.
+      </p>
+    </div>
+
+    <div id="container" style="max-width: 100%; height: 470px; padding: 10px 50px 10px 50px">
+    </div>
+
+    <div id="footer" style="height: 2%; margin-top: 150px">
+      <p style="text-align: justify; padding: 20px 50px 0px 50px">
+        <b>Dicas para interagir com a visualização</b>:
+      </p>
+      <ul style="padding: 0px 50px 10px 75px;">
+      <li>Inserir aqui breves instruções para o usuário navegar na visualização e usar o máximo dos recursos de interação disponíveis.</li>
+      <li>...</li>
+      <li>...</li>
+    </ul>
+    </div>
+
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/extension/bmap.min.js"></script>
+  -->
+
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    //duration; temperatura média no mês; luz solar; ano; record?
+const data = [
+      [[60.0, 16.67, 56.33, 1923, false, 73.97], [6.0, 18.73, 61.67, 1952, false, 93.67], [8.0, 16.67, 48.67, 1953, false, 157.9], [4.0, 15.07, 39.67, 1956, false, 174.9], [8.0, 17.0, 53.0, 1958, false, 177.87], [8.0, 17.63, 52.0, 1959, false, 109.87], [7.0, 16.47, 54.67, 1961, false, 104.2], [20.0, 15.87, 43.33, 1965, false, 158.63], [16.0, 15.83, 44.33, 1966, false, 160.7], [6.0, 16.97, 54.67, 1967, false, 119.43], [5.0, 16.03, 48.67, 1968, false, 119.83], [10.0, 16.13, 49.33, 1969, false, 144.57], [40.0, 17.07, 48.0, 1970, false, 159.87], [5.0, 16.97, 53.67, 1971, false, 139.5], [8.0, 15.77, 44.0, 1972, false, 148.5], [26.0, 17.4, 47.67, 1973, false, 137.93], [5.12, 16.57, 51.33, 1974, false, 124.73], [22.0, 16.53, 45.0, 1975, false, 186.1], [11.0, 17.63, 55.33, 1976, false, 126.93], [27.0, 16.07, 38.67, 1977, false, 116.23], [12.0, 15.4, 39.67, 1978, false, 138.53], [19.0, 16.3, 38.0, 1979, false, 101.27], [17.0, 15.6, 33.33, 1980, false, 120.0], [14.17, 16.53, 42.0, 1981, false, 109.83], [13.0, 17.5, 40.67, 1982, false, 186.9], [24.33, 19.07, 48.67, 1983, true, 52.83], [22.0, 16.8, 47.0, 1984, false, 75.13], [24.0, 16.8, 51.33, 1985, false, 94.8], [14.0, 16.7, 50.67, 1986, false, 126.03], [17.0, 16.3, 37.67, 1987, false, 160.4], [40.0, 16.93, 48.0, 1988, false, 184.97], [24.0, 17.1, 48.33, 1989, false, 131.07], [10.5, 17.53, 53.0, 1990, false, 112.73], [12.0, 18.03, 54.67, 1991, false, 95.13], [10.22, 18.37, 46.33, 1992, false, 103.53], [23.5, 17.0, 44.33, 1993, false, 177.9], [21.92, 19.13, 51.33, 1994, true, 85.03], [5.85, 17.43, 45.33, 1995, false, 137.67], [8.0, 17.03, 47.33, 1996, false, 125.7], [7.5, 17.3, 43.67, 1997, false, 152.0], [10.22, 18.07, 47.67, 1998, false, 99.87], [23.87, 17.23, 41.67, 1999, false, 146.27], [16.75, 17.63, 51.33, 2000, false, 138.03], [26.38, 17.7, 55.33, 2001, false, 144.93], [12.4, 18.4, 49.33, 2002, false, 114.77], [5.7, 21.67, 67.0, 2003, true, 83.5], [11.7, 17.63, 48.0, 2004, false, 104.93], [17.87, 17.63, 51.0, 2005, false, 140.93], [10.47, 18.3, 52.67, 2006, false, 91.23], [12.15, 17.27, 43.33, 2007, false, 184.3], [26.02, 17.8, 47.67, 2008, false, 133.73], [12.92, 18.33, 53.33, 2009, false, 136.43], [12.9, 18.03, 46.0, 2010, false, 126.37], [10.93, 17.5, 48.0, 2011, false, 130.37], [12.12, 18.3, 51.33, 2012, false, 173.37], [35.18, 18.5, 58.67, 2013, false, 82.17], [20.65, 20.17, 61.0, 2015, true, 80.6], [43.57, 18.27, 49.33, 2016, false, 166.33], [9.93, 19.53, 53.33, 2017, true, 119.87], [20.52, 20.17, 62.67, 2018, true, 80.33], [17.73, 19.73, 59.0, 2019, true, 109.37], [NaN, 18.67, 54.33, 2020, false, 112.93], [12.95, 17.97, 44.67, 2021, false, 169.37], [37.98, 20.4, 66.67, 2022, true, 82.17], [57.0, 20.07, 59.33, 2023, true, 110.7], [NaN, 19.5, 50.67, 2024, true, 98.93], [26.5, 19.6, 58.67, 2025, true, 126.8]]
+    ];
+
+    function getRegressionLine(dataArray) {
+      let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
+      let count = 0;
+      let minX = Infinity, maxX = -Infinity;
+
+      dataArray.forEach(item => {
+        let x = item[0];
+        let y = item[1];
+        
+        if (!isNaN(x) && !isNaN(y)) {
+          sumX += x;
+          sumY += y;
+          sumXY += x * y;
+          sumXX += x * x;
+          count++;
+          
+          if (x < minX) minX = x;
+          if (x > maxX) maxX = x;
+        }
+      });
+
+
+      if (count < 2) return []; 
+      let divisor = (count * sumXX - sumX * sumX);
+      if (divisor === 0) return []; 
+
+      let m = (count * sumXY - sumX * sumY) / divisor;
+      let b = (sumY - m * sumX) / count;
+
+      return [
+        [minX, m * minX + b],
+        [maxX, m * maxX + b]
+      ];
+    }
+
+    var option = {
+      backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [
+        { offset: 0, color: '#f7f8fa' },
+        { offset: 1, color: '#cdd0d5' }
+      ]),
+      visualMap: [
+        {
+          id: 'filtro-chuva',
+          min: 0,
+          max: 150,
+          dimension: 5,
+          seriesIndex: 0,
+          orient: 'vertical',
+          right: 10,
+          top: 'center',
+          text: ['Muita Chuva', 'Seco'],
+          calculable: true,
+          realtime: true,
+          hoverLink: true,
+          inRange: {
+            color: ['#f2c31a', '#24b7f2']
+          },
+          outOfRange: {
+            color: '#b8bec7'
+          }
+        },
+        {
+          id: 'filtro-anos',
+          min: 1923,
+          max: 2025,
+          dimension: 3,
+          seriesIndex: 0,
+          orient: 'horizontal',
+          left: '10%',
+          right: '18%',
+          bottom: 8,
+          text: ['Ano mais recente', 'Ano mais antigo'],
+          calculable: true,
+          realtime: true,
+          inRange: {
+            opacity: 1
+          },
+          outOfRange: {
+            opacity: 0
+          }
+        }
+      ],
+
+      dataZoom: [
+        {
+          type: 'slider',
+          start: 0,
+          end: 100,
+          seriesIndex: [0],
+          bottom: 66,
+          height: 24
+        },
+        {
+          type: 'inside',
+          seriesIndex: [0] 
+        }
+      ],
+      title: {
+        text: 'Correlação Da Duração Da Explosão Do Boneco de Zurique Com Um Bom Verão',
+        left: '5%',
+        top: '0%',
+        subtext: 'Anos selecionados: 1923–2025'
+      },
+      grid: {
+        left: '8%',
+        top: '15%',
+        bottom: 145
+      },
+      xAxis: {
+        splitLine: { lineStyle: { type: 'dashed' } },
+        name: 'Duração da Explosão (minutos)', 
+        nameLocation: 'middle',                
+        nameGap: 32,
+        nameTextStyle: {
+          fontSize: 14,
+          fontWeight: 'bold'
+        }
+      },
+      yAxis: {
+        splitLine: { lineStyle: { type: 'dashed' } },
+        scale: true,
+        name: 'Temperatura (°C)',
+        nameLocation: 'middle', 
+        nameGap: 30,
+        nameRotate: 90,
+        nameTextStyle: {
+          fontSize: 14,
+          fontWeight: 'bold'
+        }
+      },
+      series: [
+        {
+          id: 'bolhas',
+          name: 'Dados',
+          data: data[0],
+          type: 'scatter',
+          symbolSize: function (item) {
+            return item[2] / 2; 
+          },
+          emphasis: {
+            focus: 'series',
+            label: {
+              show: true,
+              formatter: function (param) {
+                return param.data[3];
+              },
+              position: 'top'
+            }
+          },
+          itemStyle: {
+            shadowBlur: 10,
+            shadowColor: 'rgba(120, 36, 50, 0.5)',
+            shadowOffsetY: 5,
+            color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [
+              { offset: 0, color: 'rgb(251, 118, 123)' },
+              { offset: 1, color: 'rgb(204, 46, 72)' }
+            ])
+          }
+        },
+        {
+          id: 'linha-tendencia',
+          name: 'Linha de Tendência',
+          type: 'line',
+          data: getRegressionLine(data[0]),
+          showSymbol: false,
+          tooltip: { show: false },
+          lineStyle: {
+            color: '#333333',
+            width: 2,
+            type: 'dashed'
+          }
+        }
+      ]
+    };
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    var intervaloAnosSelecionado = [1923, 2025];
+
+    function atualizaLinhaDeTendencia() {
+      var xAxis = myChart.getModel().getComponent('xAxis', 0);
+      var extent = xAxis.axis.scale.getExtent(); 
+      var minXVisivel = extent[0];
+      var maxXVisivel = extent[1];
+
+      var pontosNaTela = data[0].filter(function(item) {
+        return item[0] >= minXVisivel && item[0] <= maxXVisivel &&
+          item[3] >= intervaloAnosSelecionado[0] &&
+          item[3] <= intervaloAnosSelecionado[1];
+      });
+
+      myChart.setOption({
+        title: {
+          subtext: 'Anos selecionados: ' + intervaloAnosSelecionado[0] +
+            '–' + intervaloAnosSelecionado[1]
+        },
+        series: [
+          {
+            id: 'linha-tendencia',
+            data: getRegressionLine(pontosNaTela)
+          }
+        ]
+      });
+    }
+
+    // Vincula a função acima ao evento de dar zoom no gráfico
+    myChart.on('datazoom', atualizaLinhaDeTendencia);
+    myChart.on('datarangeselected', function(params) {
+      if (params.visualMapId === 'filtro-anos' && Array.isArray(params.selected)) {
+        intervaloAnosSelecionado = [
+          Math.ceil(params.selected[0]),
+          Math.floor(params.selected[1])
+        ];
+        atualizaLinhaDeTendencia();
+      }
+    });
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+    atualizaLinhaDeTendencia();
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
