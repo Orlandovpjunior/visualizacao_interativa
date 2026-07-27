@@ -138,10 +138,10 @@
       <h2 style="text-align: center">
         <span style="
             font-family: &#39;Lucida Sans Unicode&#39;, &#39;Lucida Grande&#39;, sans-serif;
-          "><strong>Título da visualização</strong></span>
+          "><strong>Correlação Da Duração Da Explosão Do Boneco de Zurique Com Um Bom Verão</strong></span>
       </h2>
       <p style="text-align: justify; padding: 10px 50px 10px 50px">
-        Breve resumo sobre os dados (e as histórias) visualizadas.
+        A nossa base de dados contém informações sobre a duração da explosão do boneco de Zurique, bem como a temperatura média, quantidade de luz solar e precipitação durante o verão em um intervalo de 102 anos. A visualização interativa permite explorar a relação entre esses fatores ao longo dos anos, destacando que, de forma geral, não há uma correlação clara entre a duração da explosão e um bom verão, mas é possível observar intervalos de anos que essa crença se aproxima da realidade.
       </p>
     </div>
 
@@ -322,12 +322,6 @@
           seriesIndex: [0] 
         }
       ],
-      title: {
-        text: 'Correlação Da Duração Da Explosão Do Boneco de Zurique Com Um Bom Verão',
-        left: '5%',
-        top: '0%',
-        subtext: 'Anos selecionados: 1923–2025'
-      },
       grid: {
         left: '8%',
         top: '15%',
@@ -415,10 +409,6 @@
       });
 
       myChart.setOption({
-        title: {
-          subtext: 'Anos selecionados: ' + intervaloAnosSelecionado[0] +
-            '–' + intervaloAnosSelecionado[1]
-        },
         series: [
           {
             id: 'linha-tendencia',
