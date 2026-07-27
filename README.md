@@ -29,6 +29,9 @@ cd ~/visualizacao_interativa
 ```bash
 python -m http.server 80
 ```
+ou
+```bash
+sudo python -m http.server 80
 
 ### 3. Abra no navegador:
 ```text
